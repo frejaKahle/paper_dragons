@@ -1,0 +1,98 @@
+$background-color-dark: #121010;
+$background-color-light: #f2f2f2;
+$font-color-dark: white;
+$font-color-light: #000;
+$font-color-link: #039be5;
+$raised-background-color: #30303040;
+$heading-horizontal-rule-color: orangered;
+$sidenav-highlight-color: orange;
+$sidenav-partial-color: #ffb53080;
+$screen-size-phone: 425px;
+$screen-size-tablet: 768px;
+$screen-size-laptop: 1024px;
+$screen-size-large: 1440px;
+$screen-size-4k: 2560px;
+@mixin sizeAndUp($size) {
+    @media only screen and (min-width: $size) {
+        @content;
+    }
+}
+
+@mixin belowSize($size) {
+    @media only screen and (max-width: ($size - 1)) {
+        @content;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    &[id] {
+        scroll-margin: 0px;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: $background-color-light;
+}
+
+.dark body {
+    background-color: $background-color-dark;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    font-size: 14px;
+    font-family: "Montserrat", sans-serif;
+    color: $font-color-light;
+    transition: color, background-color 0.3s ease-in-out;
+    @include sizeAndUp(768px) {
+        font-size: 18px;
+    }
+}
+
+html.dark,
+.dark body {
+    color: $font-color-dark;
+}
+
+section {
+    width: 100%;
+}
+
+.content {
+    display: flex;
+    justify-content: start;
+}
+
+@for $i from 1 through 6 {
+    h#{7-$i} {
+        font-size: ($i / 3 + 1) * 1em;
+        margin: 2rem 0 0.5em 0;
+        font-weight: 325;
+        background: none;
+        border-radius: 0;
+    }
+}
+
+h2::after,
+h3::after,
+h4::after {
+    display: block;
+    align-self: center;
+    content: "";
+    border-top: 2px solid $heading-horizontal-rule-color;
+    width: calc(100% - 0.7rem);
+    margin: 0 0.35rem;
+}
+
+a {
+    text-decoration: none;
+}

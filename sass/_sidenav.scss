@@ -1,0 +1,157 @@
+.sidenav {
+    display: block;
+    font-size: 16px;
+    position: sticky;
+    top: 5vh;
+    margin-top: 0.5rem;
+    font-size: 16px;
+    width: 100%;
+    padding: 25px 15px 0 15px;
+    @include sizeAndUp($screen-size-large) {
+        font-size: 22px;
+        @include sizeAndUp($screen-size-4k) {
+            font-size: 24px;
+        }
+    }
+    @include belowSize($screen-size-laptop) {
+        font-size: 16px;
+        width: 100%;
+        margin-top: 0;
+        padding: 15px 15px 0 15px;
+        top: 0;
+        position: absolute;
+        border: none;
+    }
+    // all containers should have no padding
+    div {
+        padding: 0 !important;
+    }
+    // all lists within sidenav
+    ul {
+        padding: 0;
+    }
+    // only outermost list of sidenav
+    &>ul {
+        @include sizeAndUp(1024px) {
+            border: 2px solid $raised-background-color;
+            border-radius: 2px;
+        }
+        // inner lists of sidenav
+        ul {
+            padding-left: 2em;
+            border: 0;
+            overflow: hidden;
+        }
+        div:not(:is(.open, .current)) ul {
+            * {
+                color: $background-color-light;
+                font-size: 0;
+                .dark & {
+                    color: $background-color-dark;
+                }
+            }
+        }
+    }
+    // list elements
+    li {
+        display: flex;
+        a:is(:hover, .current) {
+            border-left: 3px solid $sidenav-highlight-color;
+            margin-left: 0;
+        }
+        a.within:not(.current) {
+            border-left: 3px solid $sidenav-partial-color;
+            margin-left: 0;
+        }
+        &.title {
+            font-size: 150%;
+            border-bottom: 1.5px solid $raised-background-color;
+        }
+        &.top-link {
+            border-bottom: 1.5px solid $raised-background-color;
+            flex-grow: 1;
+            &.current {
+                font-size: 0;
+                transition: color 0.1s linear, font-size 0.3s linear;
+                color: $background-color-light;
+                .dark & {
+                    color: $background-color-dark;
+                }
+                border-bottom-width: 0;
+            }
+        }
+        &::before {
+            content: none;
+        }
+    }
+    // links
+    a {
+        color: $font-color-light !important;
+        border-left: 0;
+        margin-left: 3px;
+        transition: color 0.3s linear, font-size 0.25s ease;
+        .dark & {
+            color: $font-color-dark !important;
+        }
+        &:hover {
+            transition: color 0ms;
+            color: $sidenav-highlight-color !important;
+        }
+    }
+    //links with dropdowns
+    span {
+        flex-grow: 1;
+        display: flex;
+        padding: 0;
+        margin: 0;
+        margin-left: 0;
+        &>a {
+            flex-shrink: 0;
+            height: 0;
+            @include sizeAndUp(1024px) {
+                padding: 0.25em 0 0.30em 0.35em;
+                min-width: 50%;
+                height: fit-content;
+            }
+            @include belowSize($screen-size-laptop) {
+                padding: 0.25em 0 0.30em 0.35em;
+                min-width: 50%;
+                height: fit-content;
+            }
+        }
+    }
+    .dropbtn {
+        flex-grow: 1;
+        max-width: 50%;
+        div {
+            border: solid $font-color-light;
+            border-width: 0 3px 3px 0;
+            .dark & {
+                border: solid $font-color-dark;
+                border-width: 0 3px 3px 0;
+            }
+            width: 0.71em;
+            height: 0.71em;
+            padding: 0.25em;
+            position: relative;
+            float: right;
+            right: 0.75em;
+            top: 0.5em;
+            transform: rotate(-45deg);
+            transition: transform 0.2s linear,
+            border-color 0.3s ease-in-out;
+        }
+    }
+    div:is(.open, .current)>li>span>div.dropbtn>div {
+        transform: rotate(45deg);
+    }
+    div>ul>div>li>span>div>div {
+        border-color: red;
+    }
+    div.open>li>span>div.dropbtn>div {
+        border-color: $sidenav-highlight-color;
+    }
+    div:not(:is(.open, .current))>ul li>span>div.dropbtn>div {
+        display: none;
+    }
+}

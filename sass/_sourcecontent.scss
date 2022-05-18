@@ -1,0 +1,132 @@
+%sourcecontent {
+    .primary-content {
+        max-width: 100%;
+        padding: 0 15px;
+        min-height: min-content;
+        max-height: none;
+        @include sizeAndUp(1024px) {
+            max-width: 72.5%;
+            padding-left: 0;
+            @include sizeAndUp($screen-size-4k) {
+                max-width: 60%
+            }
+        }
+        li {
+            margin-top: 0.25em;
+            &::marker {
+                content: none;
+            }
+            &::before {
+                content: '';
+                position: relative;
+                top: -2px;
+                display: inline-block;
+                width: 0.4em;
+                height: 0.4em;
+                border-radius: 0.2em;
+                margin-left: 0.5em;
+                margin-right: 0.75em;
+                background-color: $font-color-light;
+                .dark & {
+                    background-color: $font-color-dark;
+                }
+            }
+        }
+    }
+    .secondary-content {
+        width: 0%;
+        @include sizeAndUp($screen-size-laptop) {
+            width: 27.5%;
+            & .sidenav-close {
+                display: none;
+            }
+            @include sizeAndUp($screen-size-4k) {
+                width: 20%
+            }
+        }
+        @include belowSize($screen-size-laptop) {
+            z-index: 1;
+            width: 20em;
+            height: 100%;
+            top: 0;
+            left: -20em;
+            position: fixed;
+            transition: left 0.4s ease-in-out;
+            border-right: 2px solid $raised-background-color;
+            background-color: $background-color-light;
+            .dark & {
+                background-color: $background-color-dark;
+            }
+            &::after {
+                z-index: -1;
+                content: ' ';
+                position: absolute;
+                height: 100vh;
+                width: 100vw;
+                top: 0;
+                left: 100000px;
+                background-color: $font-color-light;
+                opacity: 0.0;
+                transition: opacity 0.4s linear;
+            }
+            &.mobile-menu-open {
+                left: 0;
+                &::after {
+                    opacity: 0.6;
+                    left: 20em;
+                }
+                & .sidenav-close {
+                    left: 0;
+                }
+            }
+            & .sidenav-close {
+                display: inherit;
+                position: absolute;
+                left: -200%;
+                background-color: transparent;
+                border: none;
+                height: 100%;
+                width: 100vw;
+                font-family: "Montserrat", sans-serif;
+                text-decoration: none;
+                color: inherit;
+                &:focus {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+    div {
+        scroll-margin-top: -5px;
+        padding: 0.1px 0;
+    }
+    a {
+        color: $font-color-link;
+    }
+    .quick {
+        border-radius: 0.35em;
+        background-color: $raised-background-color;
+        padding: 0.5rem;
+    }
+}
+
+.class,
+.subclass {
+    @extend %sourcecontent;
+    table {
+        margin-top: 0.5rem;
+        table-layout: fixed;
+        overflow-x: auto;
+        display: block;
+        border-collapse: collapse;
+        td,
+        th {
+            border: 1px solid $raised-background-color;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            text-align: center;
+            padding: 10px 5px;
+        }
+    }
+}

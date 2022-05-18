@@ -1,0 +1,123 @@
+section.character {
+    &.theme-hex {
+        @extend %hextheme;
+        &.90 * {
+            &::after {
+                content: 'hi';
+            }
+        }
+    }
+}
+
+%float-anim3D {
+    animation-name: floating;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    filter: drop-shadow(0 0 20px);
+    opacity: 0.8;
+    @keyframes floating {
+        0% {
+            transform: perspective(calc(var(--x)*2)) translate3d(10%, 10%, 0) rotateX(-4deg) rotateY(7deg);
+        }
+        45% {
+            transform: perspective(calc(var(--x)*2)) translate3d(10%, 12.5%, 0) rotateX(-3deg) rotateY(7deg);
+        }
+        100% {
+            transform: perspective(calc(var(--x)*2)) translate3d(10%, 10%, 0) rotateX(-4deg) rotateY(7deg);
+        }
+    }
+}
+
+%hextheme {
+    --x: 4rem;
+    --bw: 2px;
+    --bc: pink;
+    --bgc: #121010;
+    // x is used to determine hex box sizes
+    .stats {
+        box-sizing: content-box;
+        width: calc(var(--x) * 1.732 * 2);
+        height: calc(var(--x)* 1.732 * 3.5 - 2.5 * var(--bw));
+        overflow: hidden;
+        &.float-3D {
+            @extend %float-anim3D;
+        }
+        &>div {
+            position: relative;
+            z-index: 1;
+            margin: 0 calc(var(--x) * 0.5);
+            width: var(--x);
+            height: calc(1.732 * var(--x));
+            border-style: solid;
+            border-color: var(--bc);
+            border-width: var(--bw) 0;
+            &>* {
+                margin: 2px 0;
+                text-align: center;
+            }
+            &>p {
+                margin-top: 0;
+            }
+            h2 {
+                border: solid var(--bc);
+                border-width: 0 1px;
+                border-radius: 10px;
+                &::after {
+                    content: none;
+                }
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            &>h5 {
+                position: absolute;
+                width: var(--x);
+                bottom: 0;
+                margin-bottom: var(--bw);
+                border-radius: 0.5rem;
+                border-bottom: 1px solid var(--bc);
+                filter: alpha(0.65);
+            }
+            &:empty::after,
+            &:not(:empty)>*:first-child::before {
+                position: absolute;
+                top: 0;
+                left: 0;
+                box-sizing: border-box;
+                z-index: -1;
+                content: "";
+                width: var(--x);
+                height: calc(1.73 * var(--x));
+                border-style: solid;
+                border-color: var(--bc);
+                border-width: var(--bw) 0;
+                transform: translateY(calc(var(--bw) * -1)) rotate(120deg);
+            }
+            &::before {
+                position: absolute;
+                box-sizing: border-box;
+                content: "";
+                z-index: -1;
+                width: var(--x);
+                height: calc(1.732 * var(--x));
+                border-style: solid;
+                border-color: var(--bc);
+                border-width: var(--bw) 0;
+                transform: translateY(calc(var(--bw) * -1)) rotate(-120deg);
+            }
+            &:not(.back):is(:nth-of-type(4), :nth-of-type(5), :nth-of-type(6)) {
+                position: relative;
+                left: calc(var(--x) * 1.5 - var(--bw));
+                top: calc(var(--x) * -1.732 * 2.5 + var(--bw) * 1.5);
+            }
+            &:nth-child(2),
+            &:nth-child(3),
+            &:nth-child(5),
+            &:nth-child(6) {
+                border-top-width: 0;
+                height: calc(1.732 * var(--x) - var(--bw));
+            }
+        }
+    }
+}

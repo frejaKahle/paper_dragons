@@ -1,0 +1,36 @@
+#top {
+    scroll-margin-top: 0px;
+    padding: 1px 0;
+    &>* {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: $background-color-light;
+        .dark & {
+            background-color: $background-color-dark;
+        }
+        border-bottom: 2px solid $raised-background-color;
+        button {
+            &.sidenav-open {
+                height: 40px;
+                width: 40px;
+                margin: 0.5em;
+                border: none;
+                font-size: 18px;
+                font-weight: bold;
+                background-color: transparent;
+                i {
+                    font-size: 30px;
+                    color: $font-color-light;
+                    .dark & {
+                        color: $font-color-dark;
+                    }
+                }
+                @include sizeAndUp($screen-size-laptop) {
+                    display: none;
+                }
+            }
+        }
+    }
+}
